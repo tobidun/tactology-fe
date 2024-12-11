@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useQuery } from "@apollo/client";
 import { GET_DEPARTMENT_BY_ID } from "@/lib/graphql/queries";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Loading } from "@/components/ui/loading";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -26,7 +26,6 @@ export default function GetDepartmentDetail({ id }: { id: string }) {
   return (
     <>
       <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 text-white p-8 overflow-hidden relative">
-        {/* Animated background shapes */}
         <motion.div
           className="absolute inset-0 z-0"
           initial={{ opacity: 0 }}
@@ -105,7 +104,7 @@ export default function GetDepartmentDetail({ id }: { id: string }) {
                         {department?.name}
                       </h2>
                     </div>
-                    {/* <Link href={`/departments/${Number(id)}/edit`}>  */}
+
                     <Button
                       onClick={() => setIsEditable(true)}
                       className="bg-yellow-400 hover:bg-yellow-300 text-purple-900 font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
@@ -113,7 +112,6 @@ export default function GetDepartmentDetail({ id }: { id: string }) {
                       <Edit className="h-5 w-5" />
                       <span>Edit Department</span>
                     </Button>
-                    {/* </Link> */}
                   </motion.div>
 
                   <motion.div

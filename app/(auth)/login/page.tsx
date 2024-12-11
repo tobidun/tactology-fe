@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Lock, Mail, User } from "lucide-react";
+import { LOGIN } from "@/lib/graphql/queries";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -21,19 +22,12 @@ export default function LoginPage() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
-
-    const query = `
-      mutation login($username: String!, $password: String!) {
-        login(username: $username, password: $password) 
-      }
-    `;
+    setError("");
 
     const variables = {
       username,
       password,
     };
-    console.log(process.env.NEXT_PUBLIC_GRAPHQL_URL);
 
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_GRAPHQL_URL}`, {
@@ -41,7 +35,7 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query, variables }),
+        body: JSON.stringify({ LOGIN, variables }),
       });
 
       const data = await response.json();
@@ -51,13 +45,10 @@ export default function LoginPage() {
         return;
       }
 
-      console.log(data.data.login);
       const token = data.data.login;
 
-      // Save the token (e.g., in localStorage or cookies)
       localStorage.setItem("authToken", token);
 
-      // Redirect to the dashboard
       router.push("/departments");
     } catch (err) {
       setError("Failed to login. Please try again.");

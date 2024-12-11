@@ -10,7 +10,6 @@ import { Building2, Trash2, Plus, Sparkles } from "lucide-react";
 import { useMutation } from "@apollo/client";
 import { motion, AnimatePresence } from "framer-motion";
 import { CREATE_DEPARTMENT, GET_DEPARTMENTS } from "@/lib/graphql/queries";
-import { Loading } from "@/components/ui/loading";
 
 export default function CreateDepartmentPage() {
   const router = useRouter();
@@ -59,7 +58,6 @@ export default function CreateDepartmentPage() {
           },
         },
       });
-      console.log(data);
       if (data) {
         router.push("/departments");
       }
@@ -68,12 +66,8 @@ export default function CreateDepartmentPage() {
     }
   };
 
-  // Show loader if the form is being submitted
-  // if (loading) return <Loading />;
-
   return (
     <div className="h-screen flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 p-8 overflow-hidden relative">
-      {/* Animated background shapes */}
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}

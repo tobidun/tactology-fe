@@ -17,11 +17,11 @@ export function DepartmentList({ departments }: DepartmentListProps) {
             <Link href={`/departments/${department.id}`} key={department.id}>
               <motion.div
                 className="w-full bg-white shadow-[0px_0px_15px_rgba(0,0,0,0.09)] p-9 space-y-3 relative overflow-hidden rounded-xl"
-                initial={{ opacity: 0, y: 50 }} // Start from below (y: 50)
-                animate={{ opacity: 1, y: 0 }} // Fade in and move to original position
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.5,
-                  delay: index * 0.2, // Add a delay based on index for staggered animation
+                  delay: index * 0.2,
                 }}
               >
                 <motion.div

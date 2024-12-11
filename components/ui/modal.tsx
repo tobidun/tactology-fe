@@ -42,8 +42,6 @@ export default function Modal({ children, isOpen, onClose, className }: Props) {
     };
   }, [onClose]);
 
-  // if (!isOpen) return null
-
   return (
     <AnimatePresence>
       {isOpen && (

@@ -1,4 +1,4 @@
-"use client"; // Required for Next.js 13+ client-side components
+"use client";
 
 import { useRouter } from "next/navigation";
 

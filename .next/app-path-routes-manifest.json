@@ -1,9 +1,0 @@
-{
-  "/_not-found": "/_not-found",
-  "/page": "/",
-  "/departments/page": "/departments",
-  "/(auth)/login/page": "/login",
-  "/departments/[id]/page": "/departments/[id]",
-  "/departments/create/page": "/departments/create",
-  "/departments/[id]/edit/page": "/departments/[id]/edit"
-}

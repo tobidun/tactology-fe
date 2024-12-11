@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -9,13 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Building2, Trash2, Plus, Sparkles } from "lucide-react";
 import { useMutation } from "@apollo/client";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  CREATE_DEPARTMENT,
-  GET_DEPARTMENT_BY_ID,
-  GET_DEPARTMENTS,
-  UPDATE_DEPARTMENT,
-} from "@/lib/graphql/queries";
-import { Loading } from "@/components/ui/loading";
+import { GET_DEPARTMENT_BY_ID, UPDATE_DEPARTMENT } from "@/lib/graphql/queries";
 
 export default function EditDepartmentPage({
   initialData,
@@ -38,7 +31,6 @@ export default function EditDepartmentPage({
   const handleSubDepartmentChange = (index: number, value: string) => {
     const updatedSubDepartments = subDepartments.map((subDepartment, idx) => {
       if (idx === index) {
-        // Create a new object for the subDepartment to ensure immutability
         return { ...subDepartment, name: value };
       }
       return subDepartment;
@@ -57,7 +49,6 @@ export default function EditDepartmentPage({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("it is working o");
     const token = localStorage.getItem("authToken");
     if (!token) {
       console.error("User is not authenticated");
@@ -91,12 +82,8 @@ export default function EditDepartmentPage({
     }
   };
 
-  // Show loader if the form is being submitted
-  // if (loading) return <Loading />;
-
   return (
     <div className="flex items-center justify-center bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 overflow-hidden relative">
-      {/* Animated background shapes */}
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}

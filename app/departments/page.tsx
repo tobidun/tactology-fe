@@ -39,7 +39,6 @@ export default function DepartmentsPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-pink-500 to-red-500 text-white p-8 overflow-hidden relative">
-      {/* Animated background shapes */}
       <motion.div
         className="absolute inset-0 z-0"
         initial={{ opacity: 0 }}
@@ -107,7 +106,6 @@ export default function DepartmentsPage() {
               </CardContent>
             </motion.div>
             <div className="flex justify-end gap-1 absolute bottom-4 right-4">
-              {/* Back Button */}
               <Button
                 className="bg-yellow-400 hover:bg-yellow-300 text-purple-900"
                 onClick={goToPreviousPage}
@@ -115,7 +113,6 @@ export default function DepartmentsPage() {
               >
                 Back
               </Button>
-              {/* Next Button */}
               <Button
                 className="bg-yellow-400 hover:bg-yellow-300 text-purple-900"
                 onClick={goToNextPage}
