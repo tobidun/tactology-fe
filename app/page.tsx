@@ -10,7 +10,7 @@ export default function Home() {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto p-8 text-center">
+    <div className="h-screen max-w-screen-xl mx-auto p-8 text-center bg-gradient-to-br from-purple-600 via-pink-500 to-red-500">
       <h1 className="text-3xl font-semibold">
         Welcome to Department Management
       </h1>

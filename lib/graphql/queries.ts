@@ -61,7 +61,7 @@ export const UPDATE_DEPARTMENT = gql`
 `;
 
 export const DELETE_DEPARTMENT = gql`
-  mutation deleteDepartment($id: ID!) {
+  mutation deleteDepartment($id: Float!) {
     deleteDepartment(id: $id) {
       id
     }

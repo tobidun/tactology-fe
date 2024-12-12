@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Lock, Mail, User } from "lucide-react";
-import { LOGIN } from "@/lib/graphql/queries";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -23,6 +22,12 @@ export default function LoginPage() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
+
+    const query = `
+      mutation login($username: String!, $password: String!) {
+        login(username: $username, password: $password) 
+      }
+    `;
 
     const variables = {
       username,
@@ -35,7 +40,7 @@ export default function LoginPage() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ LOGIN, variables }),
+        body: JSON.stringify({ query, variables }),
       });
 
       const data = await response.json();
@@ -45,10 +50,12 @@ export default function LoginPage() {
         return;
       }
 
+      console.log(data.data.login);
       const token = data.data.login;
 
       localStorage.setItem("authToken", token);
 
+      // Redirect to the dashboard
       router.push("/departments");
     } catch (err) {
       setError("Failed to login. Please try again.");
@@ -57,7 +64,7 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 bg-gradient-to-br from-purple-600 via-pink-500 to-red-500">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <h2 className="text-2xl font-bold text-center">Welcome back</h2>

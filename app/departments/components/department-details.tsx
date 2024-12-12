@@ -1,13 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useQuery } from "@apollo/client";
-import { GET_DEPARTMENT_BY_ID } from "@/lib/graphql/queries";
+import { useMutation, useQuery } from "@apollo/client";
+import { DELETE_DEPARTMENT, GET_DEPARTMENT_BY_ID } from "@/lib/graphql/queries";
 import { Card, CardContent } from "@/components/ui/card";
 import { Loading } from "@/components/ui/loading";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Building2, Edit, ArrowLeft, AlertTriangle } from "lucide-react";
+import {
+  Building2,
+  Edit,
+  ArrowLeft,
+  AlertTriangle,
+  Trash2,
+} from "lucide-react";
 import { useState } from "react";
 import Modal from "@/components/ui/modal";
 import EditDepartmentPage from "@/app/departments/components/edit-department-form";
@@ -16,12 +22,28 @@ export default function GetDepartmentDetail({ id }: { id: string }) {
   const router = useRouter();
 
   const [isEditable, setIsEditable] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const { data, loading, error } = useQuery(GET_DEPARTMENT_BY_ID, {
     variables: { id: Number(id) },
   });
 
+  const [deleteDepartment] = useMutation(DELETE_DEPARTMENT, {
+    variables: { id: Number(id) },
+    onCompleted: () => {
+      window.location.href = "/departments";
+    },
+    onError: (err) => {
+      console.error("Error deleting department:", err);
+    },
+  });
+
   const department = data?.department;
+
+  const handleDelete = () => {
+    deleteDepartment();
+    setIsDeleteModalOpen(false);
+  };
 
   return (
     <>
@@ -105,13 +127,23 @@ export default function GetDepartmentDetail({ id }: { id: string }) {
                       </h2>
                     </div>
 
-                    <Button
-                      onClick={() => setIsEditable(true)}
-                      className="bg-yellow-400 hover:bg-yellow-300 text-purple-900 font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
-                    >
-                      <Edit className="h-5 w-5" />
-                      <span>Edit Department</span>
-                    </Button>
+                    <div className="flex space-x-2">
+                      {" "}
+                      <Button
+                        onClick={() => setIsEditable(true)}
+                        className="bg-yellow-400 hover:bg-yellow-300 text-purple-900 font-semibold py-2 px-6 rounded-full transition-all duration-300 transform hover:scale-105 flex items-center space-x-2"
+                      >
+                        <Edit className="h-5 w-5" />
+                        <span>Edit Department</span>
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={() => setIsDeleteModalOpen(true)}
+                        className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-400"
+                      >
+                        <Trash2 className="h-5 w-5" />
+                      </Button>
+                    </div>
                   </motion.div>
 
                   <motion.div
@@ -163,6 +195,35 @@ export default function GetDepartmentDetail({ id }: { id: string }) {
           </AnimatePresence>
         </div>
       </div>
+
+      <Modal
+        className="w-[300px] !p-6"
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+      >
+        <div className="text-center p-6">
+          <h3 className="text-xl font-semibold mb-4">Are you sure?</h3>
+          <p className="mb-6 text-gray-600">
+            Are you sure you want to delete this department? This action cannot
+            be undone.
+          </p>
+          <div className="flex justify-center space-x-4">
+            <Button
+              onClick={handleDelete}
+              className="bg-red-500 text-white hover:bg-red-600"
+            >
+              Yes, Delete
+            </Button>
+            <Button
+              onClick={() => setIsDeleteModalOpen(false)}
+              className="bg-gray-300 text-gray-800 hover:bg-gray-400"
+            >
+              Cancel
+            </Button>
+          </div>
+        </div>
+      </Modal>
+
       <Modal
         className="!w-[500px] !p-0"
         isOpen={isEditable}

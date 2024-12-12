@@ -26,6 +26,9 @@ export default function EditDepartmentPage({
 
   const [updatedDepartment, { loading }] = useMutation(UPDATE_DEPARTMENT, {
     refetchQueries: [{ query: GET_DEPARTMENT_BY_ID }],
+    onCompleted: () => {
+      window.location.reload();
+    },
   });
 
   const handleSubDepartmentChange = (index: number, value: string) => {
