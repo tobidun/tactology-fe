@@ -188,14 +188,8 @@ export default function EditDepartmentPage({
                               }
                               className="w-full px-4 py-3 bg-white/20 border-2 border-white/30 rounded-xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:border-transparent transition-all duration-300"
                               required
+                              disabled
                             />
-                            <Button
-                              type="button"
-                              onClick={() => handleRemoveSubDepartment(index)}
-                              className="p-3 bg-red-500 text-white rounded-full hover:bg-red-600 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-400"
-                            >
-                              <Trash2 className="h-5 w-5" />
-                            </Button>
                           </div>
                         </div>
                       </div>
@@ -207,16 +201,7 @@ export default function EditDepartmentPage({
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.2 }}
-                >
-                  <Button
-                    type="button"
-                    onClick={handleAddSubDepartment}
-                    className="w-full py-3 bg-yellow-400 text-purple-900 rounded-xl hover:bg-yellow-300 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-yellow-500 flex items-center justify-center space-x-2"
-                  >
-                    <Plus className="h-5 w-5" />
-                    <span>Add SubDepartment</span>
-                  </Button>
-                </motion.div>
+                ></motion.div>
               </CardContent>
               <CardFooter className="flex justify-end space-x-4 p-6 bg-gradient-to-r from-purple-500 to-pink-500">
                 <Button
