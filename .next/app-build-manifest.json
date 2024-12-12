@@ -11,10 +11,15 @@
       "static/chunks/main-app.js",
       "static/chunks/app/departments/page.js"
     ],
-    "/departments/[id]/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/departments/[id]/page.js"
+      "static/chunks/app/page.js"
+    ],
+    "/(auth)/login/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(auth)/login/page.js"
     ]
   }
 }
